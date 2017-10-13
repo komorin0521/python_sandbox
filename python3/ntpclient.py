@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
-import ntplib
 from time import ctime
 import datetime
+
+# please install module using pip 
+# (sudo) pip install ntp lib
+import ntplib
 
 __author__ = "oomori"
 __version__ = "1.0.0"
