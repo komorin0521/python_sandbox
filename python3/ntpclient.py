@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import datetime
 from time import ctime
 import sys
@@ -9,7 +10,7 @@ import sys
 import ntplib
 
 __author__ = "oomori"
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 class MyNTPClient(object):
     def __init__(self, ntp_server_host):
@@ -29,9 +30,19 @@ class MyNTPClient(object):
             print(e)
             sys.exit(1)
 
+def importargs():
+    parser = argparse.ArgumentParser("NTP Clinet Sample")
+
+    parser.add_argument("-ntp-server-host", "-n", help="ntp server", type=str)
+    parser.add_argument("-timeformat", "-t", required=False, type=str, default = '%Y/%m/%d %H:%M:%S' )
+    args = parser.parse_args()
+
+    return args.ntp_server_host, args.timeformat
+
 def main():
-    ntp_client = MyNTPClient('ntp.nict.jp')
-    print(ntp_client.get_nowtime())
+    ntp_server_host, timeformat = importargs()
+    ntp_client = MyNTPClient(ntp_server_host)
+    print(ntp_client.get_nowtime(timeformat))
 
 if __name__ == "__main__":
     main()
