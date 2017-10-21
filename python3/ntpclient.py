@@ -33,7 +33,7 @@ class MyNTPClient(object):
 def importargs():
     parser = argparse.ArgumentParser("NTP Clinet Sample")
 
-    parser.add_argument("-ntp-server-host", "-n", help="ntp server", type=str)
+    parser.add_argument("-ntp-server-host", "-n", help="ntp server",required=True,  type=str)
     parser.add_argument("-timeformat", "-t", required=False, type=str, default = '%Y/%m/%d %H:%M:%S' )
     args = parser.parse_args()
 
