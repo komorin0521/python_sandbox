@@ -7,7 +7,7 @@ Timer module
 import time
 
 __author__ = "oomori"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 class Timer(object):
@@ -27,6 +27,9 @@ class Timer(object):
     timer.stop("test2")
 
     result = timer.get_all_result() # you can get all result as dictionary
+
+
+    timer.show_result() # show the timer results
     """
 
     def __init__(self):
@@ -35,6 +38,7 @@ class Timer(object):
         """
         self._result = dict()
         self._start_time_dict = dict()
+        self._keylist = list()
 
     def start(self, key):
         """
@@ -46,6 +50,7 @@ class Timer(object):
         if key in self._start_time_dict:
             raise NameError('%s is already registered' % key)
         else:
+            self._keylist.append(key)
             self._start_time_dict[key] = time.time()
 
     def stop(self, key):
@@ -80,3 +85,13 @@ class Timer(object):
         :return: The all results you calculated elapsed time.
         """
         return self._result
+
+    def show_results(self):
+        """
+        Show all results
+        """
+        for key in self._keylist:
+            print("{key:<{length}} : {value:.3f}".format(
+                key=str(key),
+                length=len(max(self._keylist, key=len)) + 2,
+                value=self._result[key]))
